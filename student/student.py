@@ -36,8 +36,6 @@ class Student:
         # grade_dict = {10:'A+',9:'A',8:'B',7:'C',6:'D'}
         # grade = grade_dict.get(self.score // 10, 'F')
 
-# write_file()
-
 class Students:
     def __init__(self):
         self.students = []
@@ -50,7 +48,7 @@ class Students:
                 self.students.append(Student(line))
 
     def print_students(self):
-        print("1. 학생정보")
+        print("************* 학생 정보 ************")
         print("이름\t성별\t나이\t성적\t학점")
         print("----\t----\t----\t----\t----")
         for s in self.students:
@@ -58,7 +56,7 @@ class Students:
 
     # 학생정보를 성적순으로 sorting하는 메소드 (sort)
     def sorting_students(self):
-        print("2. Sorting")
+        print("************** SORTING *************")
         self.students.sort(key=lambda stu: stu.score, reverse=True)
         print("이름\t성별\t나이\t성적\t학점")
         print("----\t----\t----\t----\t----")
@@ -69,11 +67,13 @@ class Students:
     def grading_students(self): 
         m = map(lambda stu: stu.make_grade(), self.students)
         list(m)
+        print("************** GRADING *************")
+        self.print_students()
     
     
-    # 전체 학생의 총점과 평균을 구하는 메소드. (reduce,lambda)
+    # 전체 학생의 총점과 평균을 구하는 메소드 (reduce,lambda)
     def get_sum(self): 
-        print("3.합계와 평균")
+        print("************ 합계 & 평균 ***********")
         total = reduce(lambda x, y: (x if type(x) == int else x.score) + y.score, self.students)
         self.avg = total / len(self.students)
         print("합계=", total)
@@ -81,16 +81,21 @@ class Students:
 
     # 평균 이상인 학생정보를 출력하는 메소드 (filter, lambda)
     def print_above_avg(self):
-        print("4.평균 이상")
+        print("************* 평균 이상 ************")
         std_avg = filter(lambda x : x.score >= self.avg, self.students)
         for s in std_avg:
             print(s)
 
 s = Students()
+# 1. 파일에서 학생정보를 읽기
 s.read_students()
+# 2. 학생정보를 출력
 s.print_students()
+# 3. 학생정보를 성적순으로 sorting
 s.sorting_students()
+# 4. 학생 성적으로 학점 매기기
 s.grading_students()
-s.print_students()
+# 5. 전체 학생의 총점과 평균을 구하는 메소드
 s.get_sum()
+# 6. 평균 이상인 학생정보를 출력하는 메소드
 s.print_above_avg()
